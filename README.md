@@ -6,7 +6,7 @@ The **Medical Appointment System** is a lightweight full-stack application that 
 
 ## 🛠 Tech Stack
 
-On the backend, the system uses **ASP.NET Core 7**, **Entity Framework Core**, and **SQL Server** to store and query appointment data, wrapped with Swagger for easy API exploration. The frontend is built in **Angular 13+**, using TypeScript, RxJS, and forms for data binding. Together, they form a robust client–server app with CORS support, PDF generation, and email delivery built in.
+On the backend, the system uses **ASP.NET Core 8**, **Entity Framework Core**, and **SQL Server** to store and query appointment data, wrapped with Swagger for easy API exploration. The frontend is built in **Angular 13+**, using TypeScript, RxJS, and forms for data binding. Together, they form a robust client–server app with CORS support, PDF generation, and email delivery built in.
 
 ---
 
