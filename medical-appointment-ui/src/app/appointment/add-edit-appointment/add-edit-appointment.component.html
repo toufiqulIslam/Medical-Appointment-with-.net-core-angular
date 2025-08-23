@@ -1,0 +1,59 @@
+<h2>{{ id ? 'Edit' : 'New' }} Appointment</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <label>Patient</label>
+  <select formControlName="patientId" required>
+    <option *ngFor="let p of patients" [value]="p.patientId">{{ p.name }}</option>
+  </select>
+
+  <label>Doctor</label>
+  <select formControlName="doctorId" required>
+    <option *ngFor="let d of doctors" [value]="d.doctorId">{{ d.name }}</option>
+  </select>
+
+  <label>Date</label>
+  <input formControlName="appointmentDate" type="date">
+
+  <label>Visit Type</label>
+  <select formControlName="visitType">
+    <option value="First">First Visit</option>
+    <option value="Follow-up">Follow-up</option>
+  </select>
+
+  <label>Diagnosis</label>
+  <textarea formControlName="diagnosis"></textarea>
+
+  <label>Notes</label>
+  <textarea formControlName="notes"></textarea>
+
+  <h3>Prescriptions</h3>
+  <table class="grid" formArrayName="prescriptions">
+    <thead>
+      <tr>
+        <th>Medicine</th>
+        <th>Dosage</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Notes</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of prescriptions.controls; let i = index" [formGroupName]="i">
+        <td><input formControlName="medicine" placeholder="Medicine"></td>
+        <td><input formControlName="dosage" placeholder="Dosage"></td>
+        <td><input type="date" formControlName="startDate"></td>
+        <td><input type="date" formControlName="endDate"></td>
+        <td><input formControlName="notes" placeholder="Notes"></td>
+        <td><button type="button" (click)="removePrescription(i)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" (click)="addPrescription()">+ Add Prescription</button>
+
+  <div class="actions">
+    <button type="submit">Save</button>
+    <a routerLink="/appointment">Cancel</a>
+  </div>
+</form>

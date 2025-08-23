@@ -1,0 +1,41 @@
+<h2>Appointments</h2>
+
+<div class="toolbar">
+  <input type="text" [(ngModel)]="search" placeholder="Search by patient or doctor">
+  <button (click)="searchAppointments()">Search</button>
+
+  <select [(ngModel)]="filterType" (ngModelChange)="loadAppointments()">
+    <option value="">All Visits</option>
+    <option value="First">First Visit</option>
+    <option value="Follow-up">Follow-up</option>
+  </select>
+
+  <a routerLink="/appointment/new">+ Add Appointment</a>
+</div>
+
+<table class="grid">
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Doctor</th>
+      <th>Date</th>
+      <th>Visit Type</th>
+      <th>Diagnosis</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let a of appointments">
+      <td>{{ a.patient?.name }}</td>
+      <td>{{ a.doctor?.name }}</td>
+      <td>{{ a.appointmentDate | date:'shortDate' }}</td>
+      <td>{{ a.visitType }}</td>
+      <td>{{ a.diagnosis }}</td>
+      <td>
+        <a [routerLink]="['/appointment', a.appointmentId]">Edit</a>
+        <button (click)="delete(a.appointmentId)">Delete</button>
+        <button (click)="downloadPdf(a.appointmentId)">PDF</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

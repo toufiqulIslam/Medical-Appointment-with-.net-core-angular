@@ -1,0 +1,24 @@
+# --- Node / Angular ---
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- ASP.NET / .NET Core ---
+bin/
+obj/
+*.user
+*.suo
+*.vs/
+.vscode/
+
+# --- Build & Publish ---
+/out/
+/publish/
+/logs/
+
+# --- Environment / Config ---
+appsettings.*.json
+.env
