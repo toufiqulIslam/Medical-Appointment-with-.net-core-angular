@@ -17,6 +17,7 @@
   <thead>
     <tr>
       <th>Patient</th>
+      <th>Email</th>
       <th>Doctor</th>
       <th>Date</th>
       <th>Visit Type</th>
@@ -27,6 +28,7 @@
   <tbody>
     <tr *ngFor="let a of appointments">
       <td>{{ a.patient?.name }}</td>
+      <td>{{ a.patient?.email }}</td>
       <td>{{ a.doctor?.name }}</td>
       <td>{{ a.appointmentDate | date:'shortDate' }}</td>
       <td>{{ a.visitType }}</td>
@@ -35,6 +37,7 @@
         <a [routerLink]="['/appointment', a.appointmentId]">Edit</a>
         <button (click)="delete(a.appointmentId)">Delete</button>
         <button (click)="downloadPdf(a.appointmentId)">PDF</button>
+        <button (click)="emailPatient(a.appointmentId)">Email</button>
       </td>
     </tr>
   </tbody>

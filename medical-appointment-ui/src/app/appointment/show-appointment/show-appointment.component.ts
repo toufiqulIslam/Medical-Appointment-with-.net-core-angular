@@ -50,4 +50,12 @@ export class ShowAppointmentComponent implements OnInit {
       a.click();
     });
   }
+
+  emailPatient(id: number) {
+  this.appointmentService.sendEmail(id).subscribe({
+    next: () => alert('✅ Email sent successfully!'),
+    error: () => alert('❌ Failed to send email.')
+  });
+}
+
 }

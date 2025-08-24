@@ -30,8 +30,8 @@ export class AppointmentService {
   downloadPdf(id:number) {
     return this.http.get(`${this.apiUrl}/appointments/${id}/pdf`, { responseType: 'blob' });
   }
-  sendEmail(id:number,email:string) {
-    return this.http.post(`${this.apiUrl}/appointments/${id}/email?email=${email}`, {});
+  sendEmail(id:number) {
+    return this.http.post(`${this.apiUrl}/appointments/${id}/email`, {});
   }
 
   // Patients

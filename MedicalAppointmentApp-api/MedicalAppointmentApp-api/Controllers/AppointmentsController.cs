@@ -52,7 +52,7 @@ namespace MedicalAppointmentAPI.Controllers
                     a.VisitType,
                     a.Diagnosis,
                     a.Notes,
-                    Patient = new { a.Patient.PatientId, a.Patient.Name },
+                    Patient = new { a.Patient.PatientId, a.Patient.Name, a.Patient.Email },
                     Doctor = new { a.Doctor.DoctorId, a.Doctor.Name },
                     Prescriptions = a.Prescriptions.Select(p => new {
                         p.PrescriptionId,
@@ -170,7 +170,7 @@ namespace MedicalAppointmentAPI.Controllers
 
         // POST api/appointments/{id}/email?email=abc@example.com
         [HttpPost("{id}/email")]
-        public async Task<IActionResult> SendEmail(int id, [FromQuery] string email)
+        public async Task<IActionResult> SendEmail(int id)
         {
             var appointment = _context.Appointments
                 .Include(a => a.Patient)
@@ -181,7 +181,7 @@ namespace MedicalAppointmentAPI.Controllers
             if (appointment == null) return NotFound();
 
             var pdfBytes = _pdfService.GeneratePdf(appointment);
-            await _emailService.SendEmailAsync(email, "Prescription Report", "Please find attached your prescription report.", pdfBytes);
+            await _emailService.SendEmailAsync(appointment.Patient.Email, "Prescription Report", "Please find attached your prescription report.", pdfBytes);
 
             return Ok("Email sent successfully.");
         }
