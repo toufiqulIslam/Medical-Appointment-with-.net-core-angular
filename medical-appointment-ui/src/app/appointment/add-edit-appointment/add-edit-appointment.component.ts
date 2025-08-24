@@ -38,17 +38,22 @@ export class AddEditAppointmentComponent implements OnInit {
     this.id = param ? +param : null;
 
     if (this.id) {
-      this.api.getAppointment(this.id).subscribe(res => {
-        // normalize dates to yyyy-MM-dd for input[type=date]
-        const patch = { ...res };
-        (patch.prescriptions || []).forEach((p: any) => {
-          p.startDate = (p.startDate || '').substring(0, 10);
-          p.endDate = (p.endDate || '').substring(0, 10);
-        });
-        this.form.patchValue(patch);
-        (res.prescriptions || []).forEach((p: any) => this.addPrescription(p));
+    this.api.getAppointment(this.id).subscribe(res => {
+      // ✅ fix appointmentDate
+      res.appointmentDate = (res.appointmentDate || '').substring(0, 10);
+
+      // normalize prescriptions
+      (res.prescriptions || []).forEach((p: any) => {
+        p.startDate = (p.startDate || '').substring(0, 10);
+        p.endDate = (p.endDate || '').substring(0, 10);
       });
-    }
+
+      this.form.patchValue(res);
+
+      (res.prescriptions || []).forEach((p: any) => this.addPrescription(p));
+    });
+  }
+
 
     this.api.getPatients().subscribe(p => this.patients = p);
     this.api.getDoctors().subscribe(d => this.doctors = d);
